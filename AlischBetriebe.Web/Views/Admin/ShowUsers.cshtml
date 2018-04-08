@@ -1,0 +1,50 @@
+﻿@using AlischBetriebe.Web.Domain.Account
+@model IQueryable<AlischBetriebe.Web.Domain.Account.SiteUser>
+@{
+    ViewBag.Title = "Administratoren";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>Übersicht aktiver Benutzer</h2>
+<p>Hier sehen Sie eine Übersicht aller Benutzer der Webseite. Alle Benutzer haben die gleichen Rechte und können alle Bereiche der Seite anpassen.</p>
+
+@if(ViewBag.Error != null && ViewBag.Error == true)
+{
+    <div class="alert alert-error">
+      @Html.Raw(ViewBag.ErrorMessage)
+    </div>
+}
+
+@if(ViewBag.Success != null && ViewBag.Success == true)
+{
+    <div class="alert alert-success">
+      @Html.Raw(ViewBag.SuccessMEssage)
+    </div>
+}
+
+<table class="table-striped">
+    <thead>
+        <th>Vorname & Name</th>
+        <th>Benutzername</th>
+        <th>E-Mail Adresse</th>
+        <th>Aktion</th>
+    </thead>
+    <tbody>
+        @foreach (SiteUser user in Model)
+        {
+            <tr>
+                <td>@user.Firstname @user.Lastname</td>
+                <td>@user.Username</td>
+                <td>@user.Email</td>
+                <td>
+                    <a href="#" rel="tooltip" class="btn btn-small btn-info" data-html="true" data-toggle="popover" data-placement="top" title="" data-original-title="Passwort ändern" data-content="&lt;form action='/admin/changepassword/@user.UserId' method='post'&gt;Neues Passwort:&lt;br/&gt;&lt;input class='input-medium' id='newpass' name='newpass' type='text' value=''&gt;&lt;br/&gt;Passwort wiederholen:&lt;br/&gt;&lt;input class='input-medium' id='newpass2' name='newpass2' type='text' value=''&gt;&lt;br/&gt;&lt;input type='submit' value='Speichern' class='btn btn-primary btn-small''&gt;&lt;/form&gt;">Passwort Ändern</a>
+                <a href="#" rel="tooltip" class="btn btn-small btn-danger" data-html="true" data-toggle="popover" data-placement="top" title="" data-original-title="Benutzer löschen" data-content="Achtung, diese Aktion kann nicht rückgängig gemacht werden!&lt;p /&gt;&lt;a class='btn btn-small btn-danger' href='/admin/deleteuser/@user.UserId'&gt;Endgültig löschen&lt;/a&gt;">Benutzer löschen</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<script>
+    $("[rel='tooltip']").popover();
+</script>

@@ -1,0 +1,37 @@
+﻿@model AlischBetriebe.Web.Domain.Site.SiteFooter
+@{
+    ViewBag.Title = "Seitenfußzeile bearbeiten";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+@section HeadContent{
+    @Html.CKEditorHeaderScripts()
+    @Scripts.Render("~/bundles/jqueryval")
+}
+<h2>Fußzeile bearbeiten</h2>
+<p>Der Text, den Sie hier eineben wird auf allen Seiten ganz unten eingeblendet.</p>
+
+@using(Html.BeginForm())
+    {
+        @Html.ValidationSummary(true)
+        <div class="row-fluid">
+            <div class="span12">
+                @Html.TextAreaFor(m => m.SiteFooterContent, new {@class = "input-xlarge"})
+            </div>
+        </div>
+    
+        <div class="alert">
+          <button type="button" class="close" data-dismiss="alert">&times;</button>
+            <strong>Wichtig!</strong> Achten Sie darauf, dass Sie immer ein Andministrations-Link angeben. Ohne Administrations Link müssen Sie die Adresse manuell im Browser eingeben!
+        </div>
+    
+        <input type="submit" value="Änderungen Speichern" class="btn btn-primary btn-small" onclick="@Html.CKEditorSubmitButtonUpdateFunction()"/> 
+        @Html.ActionLink("Voreinstellungen wiederherstellen", "recoverfooter", "admin", null, new {@class="btn btn-small"})
+    
+        <script type="text/javascript">
+
+            CKEDITOR.replace('SiteFooterContent',
+            {
+                filebrowserUploadUrl: '@Url.Action("uploadsiteimage", "admin")/'
+            });
+        </script>
+    }

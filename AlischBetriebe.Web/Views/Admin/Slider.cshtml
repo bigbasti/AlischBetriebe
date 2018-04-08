@@ -1,0 +1,40 @@
+﻿@model System.Collections.Generic.List<AlischBetriebe.Web.Domain.Media.ImageSlider>
+
+@{
+    ViewBag.Title = "Bilder Slider";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>Bilderslider verwalten</h2>
+<p>Hier sehen Sie alle angelegten Bilderslider. Klicken Sie auf "Slider erstellen" um einen neuen Bilderslider zu erstellen</p>
+
+@if(Model.Count == 0)
+{
+    <div class="row-fluid">
+        <div class="span6 offset3">
+            <div class="alert alert-info">
+                Sie haben noch keine Bilderslider erstellt!
+            </div>
+        </div>
+    </div>
+}
+
+<table>
+    <thead>
+        <th>Name</th><th>Anzahl Bilder</th><th>Aktion</th>
+    </thead>
+    <tbody>
+        @foreach (AlischBetriebe.Web.Domain.Media.ImageSlider s in Model.OrderByDescending(m => m.IntSliderId))
+        {
+            <tr>
+                <td>@s.Name</td>
+                <td>@if(s.Pictures != null){<text>@s.Pictures.Count</text>}else{<text>0</text>}</td>
+                <td>@Html.ActionLink("Bearbeiten", "editslider", "admin", new {id = s.IntSliderId}, new {@class="btn btn-small btn-info"}) 
+                    @Html.ActionLink("Löschen", "deleteslider", "admin", new {id = s.IntSliderId}, new {@class="btn btn-small btn-danger"}) 
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@Html.ActionLink("Slider erstellen", "createslider", "admin", null, new {@class="btn btn-small btn-success"})

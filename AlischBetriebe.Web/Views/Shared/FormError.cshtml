@@ -1,0 +1,24 @@
+﻿@using AlischBetriebe.Web.Domain.Site
+
+@{
+    ViewBag.Title = "Fehler bei der Verarbeitung!";
+    ViewBag.WebSiteType = WebSiteType.Default;
+    ViewBag.SiteHeaderFile = "standard_seitenheader.jpg";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Fehler</h2>
+<p>Bitte prüfen Sie die unteren Angaben und versuchen es ggf. erneut.</p>
+
+<ul>
+    <li>@ViewBag.ErrorMessage</li>
+</ul>
+
+<a href="javascript:window.history.back()" class="btn btn-small btn-warning">Zurück zum Formular</a>
+
+<div class="row-fluid">
+    <div class="span12 ">
+        <h3>Probleme mit dem Formular?</h3>
+        <p>Wir sind für Sie auch per Telefon erreichbar. <br />Unsere Kontaktdaten finden Sie auf der Kontaktseite links im Menü.</p>
+    </div>
+</div>

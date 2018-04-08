@@ -1,0 +1,40 @@
+﻿@model System.Collections.Generic.List<AlischBetriebe.Web.Domain.Site.SiteNotification>
+
+@{
+    ViewBag.Title = "Alle Kontaktbenachrochtigungen";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>Benachrichtigungen</h2>
+<p>Nachfolgend sehen Sie alle Kontaktaufnahmen, die Benutzer über die Seite gestartet haben</p>
+
+<table>
+    <thead>
+        <th>&nbsp;</th><th>Betreff</th><th>Absender</th><th>Datum</th><th>Aktion</th>
+    </thead>
+    <tbody>
+        @foreach(AlischBetriebe.Web.Domain.Site.SiteNotification n in Model.OrderByDescending(m => m.NotificationId))
+        {
+            <tr>
+                <td>@if(!n.WasRead){<text>NEU!</text>}</td>
+                <td>@n.Subject</td>
+                <td>@n.Sender</td>
+                <td>@n.Date</td>
+                <td>@Html.ActionLink("Öffnen", "shownotification", "admin", new {id = n.NotificationId}, new {@class="btn btn-small btn-info"}) 
+                    @Html.ActionLink("Löschen", "deletenotification", "admin", new {id = n.NotificationId}, new {@class="btn btn-small btn-danger"}) 
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@if(Model.Count == 0)
+{
+    <div class="row-fluid">
+        <div class="span6 offset3">
+            <div class="alert alert-info">
+                Hinweis: Sie haben zur Zeit keine Benachrichtigungen zum Anzeigen!
+            </div>
+        </div>
+    </div>
+}

@@ -1,0 +1,10 @@
+﻿@model AlischBetriebe.Web.Domain.Site.SiteNotification
+
+@{
+    ViewBag.Title = "Benachrichtigung";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>Eingegangene Nachricht</h2>
+
+@Html.Raw(Model.Content)

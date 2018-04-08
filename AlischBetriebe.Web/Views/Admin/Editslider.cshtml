@@ -1,0 +1,58 @@
+﻿@model AlischBetriebe.Web.Domain.Media.ImageSlider
+
+@using AlischBetriebe.Web.Domain.Media
+@{
+    ViewBag.Title = "Slider bearbeiten";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>Slider bearbeiten</h2>
+<p>Fügen Sie neue Bilder zu dem Slider hinzu oder entfernen Sie bereits vorhandene</p>
+
+<div class="alert alert-success">
+    Wenn Sie diesen Slider auf einer Seite einbinden wollen geben Sie folgenden Text auf einer beliebigen Stelle der Seite ein: 
+    <strong>$$@Model.Name$$</strong>
+</div>
+
+<h3>Vorhandene Bilder</h3>
+
+<table>
+    <thead>
+        <th>Bild</th><th>Vorschau</th><th>Aktion</th>
+    </thead>
+    <tbody>
+        @if(Model.Pictures != null && Model.Pictures.Count > 0)
+        {
+            foreach (SliderFile s in Model.Pictures)
+            {
+                <tr>
+                    <td>@s.FileName</td>
+                    <td><img src="@Url.Content("~/Content/uploads/slider/" + s.FileName)" width="200"/></td>
+                    <td>
+                        @Html.ActionLink("Löschen", "deleteSliderImage", "admin", new {id = s.FileId}, new {@class = "btn btn-small btn-danger"}) 
+                    </td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>
+
+<h3>Neues Bild hinzufügen</h3>
+
+@using (Html.BeginForm("editslider", "Admin", new { id = Model.IntSliderId }, FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <div class="row-fluid">
+        <div class="span6">
+            <input id="FileName" name="FileName" type="file" class="btn btn-small" />
+        </div>
+        <div class="span6">
+            @if(ViewBag.ErrorMessage != null)
+            {
+                <text>@ViewBag.ErrorMessage</text>
+            }
+        </div>
+    </div>
+    <p></p>
+    <input type="submit" value="Bild hinzufügen" class="btn btn-small btn-success" />
+}
+

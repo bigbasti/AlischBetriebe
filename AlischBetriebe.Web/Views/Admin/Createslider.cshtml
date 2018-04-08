@@ -1,0 +1,63 @@
+﻿@model AlischBetriebe.Web.Domain.Media.ImageSlider
+
+@{
+    ViewBag.Title = "Alle Kontaktbenachrochtigungen";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+@section HeadContent{
+    @Scripts.Render("~/bundles/jqueryval")
+}
+<h2>Neuen Slider erstellen</h2>
+<p>Bitte geben Sie eine möglichst schlüssige Bezeichnung für den Slider an und laden Sie im nächsten Schritt Bilder hoch die im Slider angezeigt werden sollen.</p>
+
+@if(ViewBag.ErrorMessage != null)
+{
+    <div class="row-fluid">
+        <div class="span6 offset3">
+            <div class="alert alert-error">
+                @ViewBag.ErrorMessage
+            </div>
+        </div>
+    </div>
+}
+
+@using (Html.BeginForm()){
+    <div class="row-fluid">
+        <div class="span12">
+            <strong>Slider Bezeichnung:</strong> Diese Bezeichnung sollte wenn möglich aus nur einem Wort bestehen.
+        </div>
+        <div class="row-fluid">
+            <div class="span12">
+                @Html.EditorFor(m => m.Name)
+            </div>
+        </div>
+    </div>
+    <div class="row-fluid">
+        <div class="span12">
+            <strong>Slider Breite:</strong> Alle Bilder des Sliders werden auf diese Größe gestreckt (Empfohlen max: 628)
+            <strong>@Html.ValidationMessageFor(m => m.Width)</strong>
+        </div>
+        <div class="row-fluid">
+            <div class="span12">
+                @Html.EditorFor(m => m.Width)
+            </div>
+        </div>
+    </div>
+    <div class="row-fluid">
+        <div class="span12">
+            <strong>Slider Höhe:</strong> Alle Bilder des Sliders werden auf diese Größe gestreckt (Empfohlen max: 400)
+            <strong>@Html.ValidationMessageFor(m => m.Height)</strong>
+        </div>
+        <div class="row-fluid">
+            <div class="span12">
+                @Html.EditorFor(m => m.Height)
+            </div>
+        </div>
+    </div>
+    <div class="row-fluid">
+        <div class="span12">
+            <input class="btn btn btn-primary" type="submit" value="Slider erstellen"/>
+        </div>
+    </div>
+}
+

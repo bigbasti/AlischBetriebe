@@ -1,0 +1,27 @@
+﻿@using AlischBetriebe.Web.Domain.Site
+
+@{
+    ViewBag.Title = "Erfolgreich gesendet!";
+    ViewBag.WebSiteType = WebSiteType.Default;
+    ViewBag.SiteHeaderFile = "standard_seitenheader.jpg";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Erfolgreich gesendet!</h2>
+<p>Ihre Anfrage wurde erfolgreich in unser System übermittelt!</p>
+
+<div class="row-fluid">
+    <div class="span8 offset2">
+        <div class="alert alert-success">
+            Ihre Anfrage wurde an unsere Mitarbeiter weitergeleitet.<br/>
+            Wir werden uns in Kürze bei Ihnen melden!
+        </div>
+    </div>
+</div>
+
+<div class="row-fluid">
+    <div class="span12 ">
+        <h3>Soll es schneller gehen?</h3>
+        <p>Dann rufen Sie uns doch einfach an. <br />Unsere Kontaktdaten finden Sie auf der Kontaktseite links im Menü.</p>
+    </div>
+</div>

@@ -1,0 +1,65 @@
+﻿@using AlischBetriebe.Web.Domain.Menu
+@model LinkedList<AlischBetriebe.Web.Domain.Menu.MenuEntry>
+@{
+    ViewBag.Title = "Seitenenü";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+    LinkedList<SelectListItem> sites = ViewBag.Sites;
+}
+
+<h2>Menüstruktur</h2>
+<p>Auf dieser Seite können Sie die Struktur des Hauptmenüs anpassen und neue Menüeinträge erstellen.</p>
+
+<div class="row" style="padding: 20px;">
+    <div class="span8">
+        <ul>
+            @foreach(MenuEntry menu in Model.OrderBy(m => m.Position))
+            {
+                <li>
+                    @menu.Name 
+                    @if ((Model.OrderBy(m => m.Position).First().MenuEntryId == menu.MenuEntryId) && Model.Count > 1)
+                    {<a href="@Url.Action("moveMenuDown", "Admin", new {id=menu.MenuEntryId})" class="btn btn-mini btn-info"><i class="icon-circle-arrow-down"></i></a>}
+                    else if ((Model.OrderBy(m => m.Position).Last().MenuEntryId == menu.MenuEntryId) && Model.Count > 1)
+                    {<a href="@Url.Action("moveMenuUp", "Admin", new {id=menu.MenuEntryId})" class="btn btn-mini btn-info"><i class="icon-circle-arrow-up"></i></a>}
+                    else if(Model.Count > 1){<a href="@Url.Action("moveMenuDown", "Admin", new {id=menu.MenuEntryId})" class="btn btn-mini btn-info"><i class="icon-circle-arrow-down"></i></a> <a href="@Url.Action("moveMenuUp", "Admin", new {id=menu.MenuEntryId})" class="btn btn-mini btn-info"><i class="icon-circle-arrow-up"></i></a>}
+                    @if(!menu.MenuEntries.Any()){<text>@Html.ActionLink("Löschen", "deletemenu", "admin", new {id=menu.MenuEntryId}, new {@class="btn btn-danger btn-mini"})</text>}
+                </li>
+                <ul>
+                    @foreach(MenuEntry subMenu in menu.MenuEntries.OrderBy(m => m.Position))
+                    {
+                        <li style="margin: 5px 0px;">
+                            @subMenu.Name 
+                            @if ((menu.MenuEntries.OrderBy(m => m.Position).First().MenuEntryId == subMenu.MenuEntryId) && menu.MenuEntries.Count > 1)
+                            {<a href="@Url.Action("moveSubMenuDown", "Admin", new {id=subMenu.MenuEntryId})" class="btn btn-mini"><i class="icon-circle-arrow-down"></i></a>}
+                            else if ((menu.MenuEntries.OrderBy(m => m.Position).Last().MenuEntryId == subMenu.MenuEntryId) && menu.MenuEntries.Count > 1)
+                            {<a href="@Url.Action("moveSubMenuUp", "Admin", new {id=subMenu.MenuEntryId})" class="btn btn-mini"><i class="icon-circle-arrow-up"></i></a>}
+                            else if(menu.MenuEntries.Count > 1){<a href="@Url.Action("moveSubMenuDown", "Admin", new {id=subMenu.MenuEntryId})" class="btn btn-mini"><i class="icon-circle-arrow-down"></i></a> <a href="@Url.Action("moveSubMenuUp", "Admin", new {id=subMenu.MenuEntryId})" class="btn btn-mini"><i class="icon-circle-arrow-up"></i></a>}
+                            @Html.ActionLink("Löschen", "deletemenu", "admin", new {id=subMenu.MenuEntryId}, new {@class="btn btn-danger btn-mini"})
+                        </li>
+                    }
+                    <li style="margin: 5px 0px;">
+                        @using (Html.BeginForm("createsubmenu", "admin", new { id = menu.MenuEntryId }))
+                        {
+                            @Html.DropDownList("sitelabel", sites)
+                            <input type="submit" class="btn btn-small" value="Hinzufügen"/>
+                        }
+                    </li>
+                </ul>
+            }
+            <li>
+                @using(Html.BeginForm("createmenu", "admin"))
+                {
+                    @Html.TextBox("menuname", "Neues Obermenü")
+                    <input type="submit" class="btn btn-small" value="Hinzufügen"/>
+                }
+            </li>
+        </ul>
+    </div>
+    <div class="span4">
+        <div class="alert alert-info">
+            <strong>Info</strong> Sie können ein Obermenü nur dann löschen, wenn es keine Untermenüeinträge mehr hat
+        </div>
+        <div class="alert alert-info">
+            <strong>Info</strong> Sie können für eine Seite beliebig viele Menüeinträge erstellen
+        </div>
+    </div>
+</div>

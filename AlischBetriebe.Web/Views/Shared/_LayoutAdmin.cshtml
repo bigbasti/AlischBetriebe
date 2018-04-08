@@ -1,0 +1,205 @@
+﻿@using AlischBetriebe.Web.Domain.Db
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>@ViewBag.Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!-- Le styles -->
+    @Styles.Render("~/Content/css/basic")
+    @Scripts.Render("~/bundles/modernizr")
+    <style type="text/css">
+        body {
+            padding-top: 20px;
+            padding-bottom: 60px;
+        }
+
+        /* Custom container */
+        .container {
+            margin: 0 auto;
+            max-width: 1000px;
+            border-radius: 15px;
+            background-color: white;
+            padding: 20px;
+        }
+
+        table {
+            width: 100%;
+            margin: 10px 0px;
+        }
+
+            .container > hr {
+                margin: 60px 0;
+            }
+
+        /* Main marketing message and sign up button */
+        .jumbotron {
+            margin: 80px 0;
+            text-align: center;
+        }
+
+            .jumbotron h1 {
+                font-size: 100px;
+                line-height: 1;
+            }
+
+            .jumbotron .lead {
+                font-size: 24px;
+                line-height: 1.25;
+            }
+
+            .jumbotron .btn {
+                font-size: 21px;
+                padding: 14px 24px;
+            }
+
+        /* Supporting marketing content */
+        .marketing {
+            margin: 60px 0;
+        }
+
+            .marketing p + h4 {
+                margin-top: 28px;
+            }
+
+        .round-and-white {
+            border-radius: 15px;
+            background-color: white;
+        }
+
+        .top-space-30 {
+            margin-top: 30px;
+        }
+
+   
+        .peKenBurns {
+            height: 200px;
+        }  
+
+
+            body{
+                background: #419be0; /* Old browsers */
+                /* IE9 SVG, needs conditional override of 'filter' to 'none' */
+                background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPHJhZGlhbEdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgY3g9IjUwJSIgY3k9IjUwJSIgcj0iNzUlIj4KICAgIDxzdG9wIG9mZnNldD0iMSUiIHN0b3AtY29sb3I9IiM0MTliZTAiIHN0b3Atb3BhY2l0eT0iMSIvPgogICAgPHN0b3Agb2Zmc2V0PSIxMDAlIiBzdG9wLWNvbG9yPSIjMDEwMDgwIiBzdG9wLW9wYWNpdHk9IjEiLz4KICA8L3JhZGlhbEdyYWRpZW50PgogIDxyZWN0IHg9Ii01MCIgeT0iLTUwIiB3aWR0aD0iMTAxIiBoZWlnaHQ9IjEwMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);
+                background: -moz-radial-gradient(center, ellipse cover,  #419be0 1%, #010080 100%); /* FF3.6+ */
+                background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(1%,#419be0), color-stop(100%,#010080)); /* Chrome,Safari4+ */
+                background: -webkit-radial-gradient(center, ellipse cover,  #419be0 1%,#010080 100%); /* Chrome10+,Safari5.1+ */
+                background: -o-radial-gradient(center, ellipse cover,  #419be0 1%,#010080 100%); /* Opera 12+ */
+                background: -ms-radial-gradient(center, ellipse cover,  #419be0 1%,#010080 100%); /* IE10+ */
+                background: radial-gradient(ellipse at center,  #419be0 1%,#010080 100%); /* W3C */
+                filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#419be0', endColorstr='#010080',GradientType=1 ); /* IE6-8 fallback on horizontal gradient */
+
+            }
+
+            body{
+                margin-top: 20px;
+            }
+
+
+    </style>
+    <style type="text/css">
+        .form-signin {
+            max-width: 300px;
+            padding: 19px 29px 29px;
+            margin: 0 auto 20px;
+            background-color: #fff;
+            border: 1px solid #e5e5e5;
+            -webkit-border-radius: 5px;
+            -moz-border-radius: 5px;
+            border-radius: 5px;
+            -webkit-box-shadow: 0 1px 2px rgba(0,0,0,.05);
+            -moz-box-shadow: 0 1px 2px rgba(0,0,0,.05);
+            box-shadow: 0 1px 2px rgba(0,0,0,.05);
+            margin-top: 20px;
+        }
+        .form-signin .form-signin-heading {
+            margin-bottom: 10px;
+        }
+        .form-signin input[type="text"],
+        .form-signin input[type="password"] {
+            font-size: 16px;
+            height: auto;
+            margin-bottom: 15px;
+            padding: 7px 9px;
+        }
+
+    </style>
+
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="../assets/js/html5shiv.js"></script>
+    <![endif]-->
+
+    <link rel="shortcut icon" href="../assets/ico/favicon.png">
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("HeadContent", required: false)
+</head>
+
+<body>
+
+    @{string unreadCount = new AbDb().SiteNotifications.Count(n => n.WasRead == false).ToString();}
+
+    <div class="container">
+
+        @if(User.Identity.IsAuthenticated)
+        {
+            <div class="row-fluid">
+                <div class="span3">
+                    <div class="well sidebar-nav">
+                        <ul class="nav nav-list">
+                            <li class="nav-header">Seiten</li>
+                            <li class="@if(ViewBag.ActiveSite == "siteoverview"){<text>active</text>}">@Html.ActionLink("Alle Seiten", "index", "admin")</li>
+                            <li class="@if(ViewBag.ActiveSite == "newsite"){<text>active</text>}">@Html.ActionLink("Neue Seite anlegen", "newsite", "admin")</li>
+                            <li class="nav-header">Medien</li>
+                            <li class="@if(ViewBag.ActiveSite == "seitentitel"){<text>active</text>}">@Html.ActionLink("Seitentitel", "header", "admin")</li>
+                            <li class="@if(ViewBag.ActiveSite == "bilderslider"){<text>active</text>}">@Html.ActionLink("Bilder Slider", "slider", "admin")</li>
+                            <li class="nav-header">Menü</li>
+                            <li class="@if(ViewBag.ActiveSite == "menuoverview"){<text>active</text>}">@Html.ActionLink("Hauptmenü", "menu", "admin")</li>
+                            <li class="@if(ViewBag.ActiveSite == "footer"){<text>active</text>}">@Html.ActionLink("Fußzeile", "footer", "admin")</li>
+                            <li class="nav-header">Benutzer</li>
+                            <li class="@if(ViewBag.ActiveSite == "useroverview"){<text>active</text>}">@Html.ActionLink("Benutzerübersicht", "showusers", "admin")</li>
+                            <li class="nav-header">Nachrichten</li>
+                            <li class="@if(ViewBag.ActiveSite == "notifications"){<text>active</text>}">@Html.ActionLink("Alle Nachrichten (" + unreadCount + ")", "notifications", "admin")</li>
+                            <li class="nav-header">Weiteres</li>
+                            <li>@Html.ActionLink("Ausloggen", "logout", "admin")</li>
+                        </ul>
+                    </div><!--/.well -->
+                </div><!--/span-->
+                <div class="span9">
+                    <div class="row-fluid">
+                        <div class="span12">
+                            @RenderBody()
+                        </div>
+                    </div><!--/row-->
+                </div><!--/span-->
+            </div>
+            <!--/row-->
+        }else
+        {
+            @RenderBody()
+        }
+        
+
+
+        <div class="footer" style="padding:15px 15px;">
+            @{
+                string footer = new AbDb().SiteFooters.First().SiteFooterContent;
+            }
+            @Html.Raw(footer)
+            Version vom 08.05.14
+        </div>
+
+    </div>
+    <!-- /container -->
+
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+
+    @RenderSection("scripts", required: false)
+</body>
+</html>

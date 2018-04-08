@@ -1,0 +1,29 @@
+﻿@using AlischBetriebe.Web.Domain.Db
+@using AlischBetriebe.Web.Domain.Menu
+@{
+    var menu = new LinkedList<MenuEntry>(new AbDb().MenuEntries.Where(m => m.Url.Equals("#")).OrderBy(m => m.Position));
+    var url = Request.Url.AbsoluteUri.Replace("http://", "").Substring(Request.Url.AbsoluteUri.Replace("http://", "").IndexOf("/"), Request.Url.AbsoluteUri.Replace("http://", "").Length - Request.Url.AbsoluteUri.Replace("http://", "").IndexOf("/")).ToLower();
+    if(!url.Equals("/"))
+    {
+        url = url.Replace("/", "");
+    }
+}
+<ul class="accordion">
+    @foreach(MenuEntry entry in menu)
+    {
+    <li id="eintrag-@entry.Position">
+        <a href="#link-@entry.Position" class="@if(entry.MenuEntries.FirstOrDefault(s => s.Url.Equals(url)) != null){<text>active</text>}">@entry.Name</a>
+        @if(entry.MenuEntries.Any())
+        {
+            <ul class="sub-menu">
+                @foreach (MenuEntry subMenu in entry.MenuEntries)
+                {
+                    <li><a href="@subMenu.Url" class="@if (subMenu.Url.ToLower().Equals(url))
+                                                       {<text>activepage</text>}">@subMenu.Name</a></li>
+                }
+                                    
+            </ul>
+        }
+    </li>
+    }
+</ul>

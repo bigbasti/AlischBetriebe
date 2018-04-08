@@ -1,0 +1,32 @@
+﻿@{
+    ViewBag.Title = "Login";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+@using (Html.BeginForm("login", "Admin", FormMethod.Post, new { @class = "form-signin" }))
+{
+    <h2 class="form-signin-heading">Bitte einloggen</h2>
+    if(ViewBag.Error != null)
+     {
+         <div class="alert alert-error">
+             <button type="button" class="close" data-dismiss="alert">&times;</button>
+             @Html.ValidationSummary()
+             @Html.Raw(ViewBag.ErrorMessage)
+         </div>
+     }
+     if (ViewBag.Success != null && ViewBag.Success == true)
+     {
+         <div class="alert alert-success">
+             <button type="button" class="close" data-dismiss="alert">&times;</button>
+             @Html.Raw(ViewBag.SuccessMessage)
+         </div>
+     }
+    <input type="text" class="input-block-level" placeholder="Benutzername" name="user">
+    <input type="password" class="input-block-level" placeholder="Passwort" name="pass">
+    <button class="btn btn-primary" type="submit">Einloggen</button>
+    <a href="#" rel="tooltip" class="btn" data-html="true" data-toggle="popover" data-placement="top" title="" data-original-title="Passwort vergessen" data-content="&lt;form action='/admin/recoverpassword' method='post'&gt;Bitte geben Sie Ihre EMail Adresse an, Ihnen wird dann ein neu generiertes Passwort zugeschickt:&lt;br/&gt;&lt;input class='input' id='email' name='email' type='text' value=''&gt;&lt;br/&gt;&lt;input type='submit' value='Neues Passwort anfordern' class='btn btn-primary btn-small''&gt;&lt;/form&gt;">Passwort Vergessen?</a>
+}
+
+<script>
+    $("[rel='tooltip']").popover();
+</script>    

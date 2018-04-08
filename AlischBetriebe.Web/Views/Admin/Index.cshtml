@@ -1,0 +1,44 @@
+﻿@using AlischBetriebe.Web.Domain.Site
+@model AlischBetriebe.Web.Models.Admin.SiteOverviewModel
+@{
+    ViewBag.Title = "Administrationsbereich";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>Angelegte Seiten</h2>
+<p>Hier sehen Sie alle bisher angelegten Seiten</p>
+
+<table class="table-striped">
+    <thead>
+        <th>Titel & Adresse</th>
+        <th>Name im Menü</th>
+        <th>Aktion</th>
+    </thead>
+    <tbody>
+        @foreach(WebSite site in Model.Sites)
+        {
+            <tr>
+                <td>
+                    <strong>@site.SiteTitle</strong><br />
+                    <span>@Request.Url.Host.ToString()/@site.SiteUrl</span>
+                </td>
+                <td>@site.SiteLabel</td>
+                <td>
+                    @Html.ActionLink("Bearbeiten", "editsite", "admin",new {id=site.SiteId}, new {@class="btn btn-info btn-small"})
+                    <a href="#" rel="tooltip" class="btn btn-small btn-danger" data-html="true" data-toggle="popover" data-placement="top" title data-original-title="Wirklich löschen?"
+                       data-content="<a href='/admin/deletesite/@site.SiteId' class='btn btn-danger btn-small'>Unwiederuflich löschen</a>">Löschen</a>
+                    <a href="@site.SiteUrl" class="btn btn-small" target="_blank">Öffnen</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<div class="alert alert-info">
+    <button type="button" class="close" data-dismiss="alert">&times;</button>
+    <strong>Info!</strong> Um eine neue Seite anzulegen klicken Sie auf "Neue Seite anlegen" links im Menü
+</div>
+
+<script>
+    $("[rel='tooltip']").popover();
+</script>

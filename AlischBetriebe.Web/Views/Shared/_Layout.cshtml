@@ -1,0 +1,257 @@
+﻿@using AlischBetriebe.Web.Domain.Db
+@using AlischBetriebe.Web.Domain.Site
+@{
+    if (ViewBag.WebSiteType == null)
+    {
+        ViewBag.WebSiteType = WebSiteType.Default;
+    }
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>@ViewBag.Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!-- Le styles -->
+    @Styles.Render("~/Content/css/basic")
+    @Styles.Render("~/Content/slider")
+    @Styles.Render("~/Content/css/pekenburns")
+    @Scripts.Render("~/bundles/modernizr")
+
+    <style type="text/css">
+        body {
+            padding-top: 20px;
+            padding-bottom: 60px;
+        }
+
+        /* Custom container */
+        .container {
+            margin: 0 auto;
+            max-width: 1000px;
+                            border-radius: 15px;
+                background-color: white;
+        }
+
+            .container > hr {
+                margin: 60px 0;
+
+            }
+
+        /* Main marketing message and sign up button */
+        .jumbotron {
+            margin: 80px 0;
+            text-align: center;
+        }
+
+            .jumbotron h1 {
+                font-size: 100px;
+                line-height: 1;
+            }
+
+            .jumbotron .lead {
+                font-size: 24px;
+                line-height: 1.25;
+            }
+
+            .jumbotron .btn {
+                font-size: 21px;
+                padding: 14px 24px;
+            }
+
+        /* Supporting marketing content */
+        .marketing {
+            margin: 60px 0;
+        }
+
+            .marketing p + h4 {
+                margin-top: 28px;
+            }
+
+        .round-and-white {
+            border-radius: 15px;
+            background-color: white;
+        }
+
+        .top-space-30 {
+            margin-top: 30px;
+        }
+
+   
+        .peKenBurns {
+            height: 200px;
+        }  
+
+
+
+
+        .peKenBurns .peKb_slides {
+            padding: 0px !important;
+            /* customize rounded border (not supported in ie < 9) */
+            -moz-border-radius: 0px !important; 
+            -webkit-border-radius: 0px !important; 
+            border-radius: 0px !important;
+        }
+
+            body{
+                background: #419be0; /* Old browsers */
+                /* IE9 SVG, needs conditional override of 'filter' to 'none' */
+                background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPHJhZGlhbEdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgY3g9IjUwJSIgY3k9IjUwJSIgcj0iNzUlIj4KICAgIDxzdG9wIG9mZnNldD0iMSUiIHN0b3AtY29sb3I9IiM0MTliZTAiIHN0b3Atb3BhY2l0eT0iMSIvPgogICAgPHN0b3Agb2Zmc2V0PSIxMDAlIiBzdG9wLWNvbG9yPSIjMDEwMDgwIiBzdG9wLW9wYWNpdHk9IjEiLz4KICA8L3JhZGlhbEdyYWRpZW50PgogIDxyZWN0IHg9Ii01MCIgeT0iLTUwIiB3aWR0aD0iMTAxIiBoZWlnaHQ9IjEwMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);
+                background: -moz-radial-gradient(center, ellipse cover,  #419be0 1%, #010080 100%); /* FF3.6+ */
+                background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(1%,#419be0), color-stop(100%,#010080)); /* Chrome,Safari4+ */
+                background: -webkit-radial-gradient(center, ellipse cover,  #419be0 1%,#010080 100%); /* Chrome10+,Safari5.1+ */
+                background: -o-radial-gradient(center, ellipse cover,  #419be0 1%,#010080 100%); /* Opera 12+ */
+                background: -ms-radial-gradient(center, ellipse cover,  #419be0 1%,#010080 100%); /* IE10+ */
+                background: radial-gradient(ellipse at center,  #419be0 1%,#010080 100%); /* W3C */
+                filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#419be0', endColorstr='#010080',GradientType=1 ); /* IE6-8 fallback on horizontal gradient */
+
+            }
+
+            body{
+                margin-top: 20px;
+            }
+
+
+    </style>
+
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="../assets/js/html5shiv.js"></script>
+    <![endif]-->
+    
+     @Scripts.Render("~/bundles/jquery")
+
+    <!-- Fav and touch icons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="../assets/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="../assets/ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="../assets/ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="../assets/ico/apple-touch-icon-57-precomposed.png">
+    <link rel="shortcut icon" href="../assets/ico/favicon.png">
+    @RenderSection("HeadContent", required: false)
+</head>
+
+<body>
+
+
+
+    <div class="container">
+
+
+        <!-- Example row of columns -->
+        <div class="row-fluid round-and-white">
+            <div class="span12" style="padding:15px 15px;">
+                <img src="@Url.Content("~/Content/uploads/header/" + @ViewBag.SiteHeaderFile)" />
+            </div>
+        </div>
+        @RenderSection("UpperBody", required: false)
+        <!-- Wenn Die Seite keine Wrapper wünscht direkt den COntent ausgeben -->
+        @if (ViewBag.WebSiteType == WebSiteType.NoWrapper)
+        {
+            @RenderBody()
+        }else
+        {
+            <div class="row-fluid" style="padding: 15px 15px;">
+                <div class="span4">
+                    <div id="wrapper-250">
+                        @Html.Partial("_Menu")
+	                </div><!-- accordion -->
+                </div>
+                <div class="span8" style="padding-right: 30px;">
+                    <!-- Content ges here -->
+
+                    <div class="row-fluid">
+                        <div class="span12">
+                            @RenderBody()   
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+
+
+
+        <div class="footer" style="padding:15px 15px;">
+            @{string footer = new AbDb().SiteFooters.First().SiteFooterContent;}
+            @Html.Raw(footer)
+        </div>
+
+    </div>
+    <!-- /container -->
+
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+
+   
+    @Scripts.Render("~/bundles/pekenburns")
+    @Scripts.Render("~/bundles/bootstrap")
+     @Scripts.Render("~/bundles/slider")
+    @RenderSection("scripts", required: false)
+    
+    
+
+
+
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+            $(".peKenBurns").peKenburnsSlider();
+
+            // Store variables
+
+            var accordion_head = $('.accordion > li > a'),
+                accordion_body = $('.accordion li > .sub-menu');
+
+            // Open the first tab on load
+
+            accordion_head.each(function() {
+                if($(this).attr('class') == 'active') {
+                    $(this).next().slideDown('normal');
+                }
+            });
+
+            //accordion_head.first().next().slideDown('normal');
+
+            // Click function
+
+            accordion_head.on('click', function (event) {
+
+                // Disable header links
+
+                event.preventDefault();
+
+                // Show and hide the tabs on click
+
+                if ($(this).attr('class') != 'active') {
+                    accordion_body.slideUp('normal');
+                    $(this).next().stop(true, true).slideToggle('normal');
+                    accordion_head.removeClass('active');
+                    $(this).addClass('active');
+                }
+
+            });
+
+
+
+        });
+
+
+
+    </script>
+	<script>
+	    (function (i, s, o, g, r, a, m) {
+	        i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+	            (i[r].q = i[r].q || []).push(arguments)
+	        }, i[r].l = 1 * new Date(); a = s.createElement(o),
+            m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+	    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+	    ga('create', 'UA-28395972-2', 'alisch-betriebe.de');
+	    ga('send', 'pageview');
+
+	</script>
+
+</body>
+</html>

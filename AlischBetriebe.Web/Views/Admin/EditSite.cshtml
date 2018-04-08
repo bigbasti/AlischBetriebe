@@ -1,0 +1,101 @@
+﻿@model AlischBetriebe.Web.Domain.Site.WebSite
+@{
+    ViewBag.Title = "Neue Seite anlegen";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+@section HeadContent{
+    @Html.CKEditorHeaderScripts()
+    @Scripts.Render("~/bundles/jqueryval")
+}
+<h2>Seite bearbeiten</h2>
+<p>Bitte füllen Sie alle Felder aus und klicken Sie anschließend unten auf "Seite erstellen"</p>
+
+@using(Html.BeginForm())
+    {
+        @Html.ValidationSummary(true)
+        <div class="row-fluid">
+            <div class="span6">
+                @Html.LabelFor(m => m.SiteTitle)
+            </div>
+            <div class="span6">
+                @Html.LabelFor(m => m.SiteLabel)
+            </div>
+        </div>
+        <div class="row-fluid">
+            <div class="span6">
+                @Html.TextBoxFor(m => m.SiteTitle, new {@class = "input-xlarge", placeholder="Beispiel: Übersicht unserer Zelte", title="Dieser Name wird den Besuchern auf der Seite angezeigt"})
+            </div>
+            <div class="span6">
+                @Html.TextBoxFor(m => m.SiteLabel, new {@class = "input-xlarge", placeholder="Beispiel: Zeltübersicht", title="Diese Bezeichnung werden die Besucher im Menü wiederfinden"})
+            </div>
+        </div>
+        <div class="row-fluid">
+            <div class="span6">
+                @Html.ValidationMessageFor(m => m.SiteTitle)
+            </div>
+            <div class="span6">
+                @Html.ValidationMessageFor(m => m.SiteLabel)
+            </div>
+        </div>
+        <div class="row-fluid">
+            <div class="span6">
+                @Html.LabelFor(m => m.SiteUrl)
+            </div>
+            <div class="span6">
+                @Html.LabelFor(m => m.SiteHeader)
+            </div>
+        </div>
+        <div class="row-fluid">
+            <div class="span6">
+                <div class="input-prepend">
+                    <span class="add-on">@Request.Url.Host.ToString()/</span>
+                    @Html.TextBoxFor(m => m.SiteUrl, new {@class = "input-medium", placeholder="Beispiel: unsere-zelte", title="Die neu angelegte Seite wird über diese Adresse für die Besucher erreichbar sein"})
+                </div>
+            </div>
+            <div class="span6">
+                @{LinkedList<SelectListItem> siteHeaders = ViewBag.SiteHeaders;}
+                @Html.DropDownList("SiteHeader", siteHeaders)
+            </div>
+        </div>
+        <div class="row-fluid">
+            <div class="span6">
+                @Html.ValidationMessageFor(m => m.SiteUrl)
+            </div>
+            <div class="span6">
+                @Html.ValidationMessageFor(m => m.SiteHeader)
+            </div>
+        </div>
+        <div class="row-fluid">
+            <div class="span12">
+                @Html.LabelFor(m => m.SiteContent)
+            </div>
+        </div>
+        <div class="row-fluid">
+            <div class="span12">
+                @Html.TextAreaFor(m => m.SiteContent, new {@class = "input-xlarge", placeholder="Fügen Sie hier den Inhalt der Seite ein."})
+            </div>
+        </div>
+    
+        <div class="row-fluid">
+            <div class="span12">
+                @Html.HiddenFor(m => m.SiteType)
+                @Html.HiddenFor(m => m.UpperBody)
+                @Html.HiddenFor(m => m.SiteId)
+            </div>
+        </div>
+    
+        <div class="alert">
+          <button type="button" class="close" data-dismiss="alert">&times;</button>
+            <strong>Wichtig!</strong> Damit die neue Seite im Menü angezeigt wird, müssen Sie auch einen Menüeintrag erstellen. Dies können Sie im Menüpunkt Menü->Übersicht machen <strong>nachdem</strong> Sie die neue Seite erstellt haben.
+        </div>
+    
+        <input type="submit" value="Änderungen speichern" class="btn btn-primary btn-small" onclick="@Html.CKEditorSubmitButtonUpdateFunction()"/>
+    
+        <script type="text/javascript">
+
+            CKEDITOR.replace('SiteContent',
+            {
+                filebrowserUploadUrl: '@Url.Action("uploadsiteimage", "admin")/'
+            });
+        </script>
+    }

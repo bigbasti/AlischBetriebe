@@ -1,0 +1,43 @@
+﻿@using AlischBetriebe.Web.Domain.Site
+@model AlischBetriebe.Web.Domain.Site.WebSite
+
+@{
+    ViewBag.Title = Model.SiteTitle;
+    ViewBag.WebSiteType = WebSiteType.Default;
+    ViewBag.SiteHeaderFile = Model.SiteHeader;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@*@Html.Raw(Model.SiteContent)*@
+
+@if(Model.UpperBody != null)
+{<text>
+    @section UpperBody
+    {
+        @Html.Raw(Model.UpperBody)
+    }
+ </text>
+}
+
+@Html.Raw(Model.SiteContent)
+
+@if(ViewBag.Slider)
+{<text>
+    @section Scripts{
+        <script type="text/javascript">
+            jQuery(document).ready(function($) {
+
+                $('#banner-fade').bjqs({
+                    height: @ViewBag.SliderHeight,
+                    width: @ViewBag.SliderWidth,
+                    responsive: true,
+                    showcontrols: false,
+                    centercontrols: false,
+                    showmarkers: false
+                });
+
+            });
+        </script>
+    }
+</text>
+}
